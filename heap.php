@@ -1,43 +1,45 @@
-function heapsort(&$Array, $n) {
-  for($i = (int)($n/2); $i >= 0; $i--) {
-    heapify($Array, $n-1, $i);
-  }
-  
-  for($i = $n - 1; $i >= 0; $i--) {
-    //swap last element of the max-heap with the first element
-    $temp = $Array[$i];
-    $Array[$i] = $Array[0];
-    $Array[0] = $temp;
 
-    //exclude the last element from the heap and rebuild the heap 
-    heapify($Array, $i-1, 0);
-  }
+function heapSirala(&$dizi, $diziBoyutu) {
+    for($i = (int)($diziBoyutu/2); $i >= 0; $i--) {
+        heap($dizi, $diziBoyutu-1, $i);
+    }
+
+    for($i = $diziBoyutu - 1; $i >= 0; $i--) {
+        //Maksimum Heap yapısına göre son yaprakla kökü değiştir
+        $gecici = $dizi[$i];
+        $dizi[$i] = $dizi[0];
+        $dizi[0] = $gecici;
+
+        //Son yaprağı diziden çıkararak tekrar Heap metodu ile sırala
+        heap($dizi, $i-1, 0);
+    }
 }
 
-// heapify function is used to build the max heap
-// max heap has maximum element at the root which means
-// first element of the array will be maximum in max heap
-function heapify(&$Array, $n, $i) {
-  $max = $i;
-  $left = 2*$i + 1;
-  $right = 2*$i + 2;
+// Heap metodu maksimum heap yapısına göre sıralamayı gerçekleştirir
+function heap(&$dizi, $diziBoyutu, $i) {
 
-  //if the left element is greater than root
-  if($left <= $n && $Array[$left] > $Array[$max]) {
-    $max = $left;
-  }
+    $maksimum = $i;
+    $solYaprak = 2 * $i + 1;
+    $sagYaprak = 2 * $i + 2;
 
-  //if the right element is greater than root
-  if($right <= $n && $Array[$right] > $Array[$max]) {
-    $max = $right;
-  }
+    //Sol yapraktaki sayı kökten büyükse maksimumu değiştir
+    if($solYaprak <= $diziBoyutu && $dizi[$solYaprak] > $dizi[$maksimum]) {
+        $maksimum = $solYaprak;
+    }
 
-  //if the max is not i
-  if($max != $i) {
-    $temp = $Array[$i];
-    $Array[$i] = $Array[$max];
-    $Array[$max] = $temp;
-    //Recursively heapify the affected sub-tree
-    heapify($Array, $n, $max); 
-  }
+    //Sağ yapraktaki sayı kökten büyükse maksimumu değiştir
+    if($sagYaprak <= $diziBoyutu && $dizi[$sagYaprak] > $dizi[$maksimum]) {
+        $maksimum = $sagYaprak;
+    }
+    
+    if($maksimum != $i) { //maksimum kök değilse
+
+        $gecici = $dizi[$i];
+        $dizi[$i] = $dizi[$maksimum];
+        $dizi[$maksimum] = $gecici;
+
+        //Yer değiştirme işlemi gerçekleştiği için tekrar Heap ile sırala
+        heapify($dizi, $diziBoyutu, $maksimum); 
+
+    }
 }
