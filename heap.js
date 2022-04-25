@@ -1,7 +1,7 @@
 let dizi = [5, 63, 23, 24, 2, 58, 2, 6];
 
 function heapSirala(diziBoyutu){
-    for(let i = (diziBoyutu / 2); i >= 0; i--){
+    for(let i = parseInt(diziBoyutu / 2); i >= 0; i--){
         heap(diziBoyutu - 1, i);
     }
 
