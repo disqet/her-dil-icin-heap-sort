@@ -18,6 +18,7 @@ function heapSirala(diziBoyutu){
     }
 }
 
+// Heap metodu maksimum heap yapısına göre sıralamayı gerçekleştirir
 function heap(diziBoyutu, index){
 
     let maksimum = index;
